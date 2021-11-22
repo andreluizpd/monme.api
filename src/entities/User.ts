@@ -28,6 +28,10 @@ export class User extends BaseEntity {
   @Column()
   password!: string;
 
+  @Field()
+  @Column()
+  contact!: string;
+
   @OneToMany(() => Service, service => service.creator)
   services: Service[];
 

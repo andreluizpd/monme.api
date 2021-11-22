@@ -13,4 +13,7 @@ export class UsernamePasswordInput {
 
   @Field()
   isServiceProvider: boolean;
+
+  @Field()
+  contact: string;
 }
