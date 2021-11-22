@@ -13,6 +13,7 @@ import session from 'express-session';
 import connectRedis from 'connect-redis';
 import cors from 'cors';
 import { createConnection } from 'typeorm';
+import { createUserLoader } from './utils/createUserLoader';
 
 const main = async () => {
   createConnection({
@@ -61,7 +62,12 @@ const main = async () => {
       resolvers: [HelloResolver, ServiceResolver, UserResolver],
       validate: false,
     }),
-    context: ({ req, res }) => ({ req, res, redis }),
+    context: ({ req, res }) => ({
+      req,
+      res,
+      redis,
+      userLoader: createUserLoader(),
+    }),
   });
 
   apolloServer.applyMiddleware({

@@ -35,7 +35,7 @@ class UserResponse {
   user?: User;
 }
 
-@Resolver()
+@Resolver(User)
 export class UserResolver {
   @Mutation(() => UserResponse)
   async changePassword(
@@ -153,6 +153,7 @@ export class UserResolver {
           password: hashedPassword,
           email: options.email,
           isServiceProvider: options.isServiceProvider,
+          contact: options.contact,
         })
         .returning('*')
         .execute();

@@ -3,14 +3,17 @@ import {
   Arg,
   Ctx,
   Field,
+  FieldResolver,
   InputType,
   Mutation,
   Query,
   Resolver,
+  Root,
   UseMiddleware,
 } from 'type-graphql';
 import { MyContext } from '../types';
 import { isAuth } from '../middleware/isAuth';
+import { User } from '../entities/User';
 
 @InputType()
 class PostInput {
@@ -24,8 +27,13 @@ class PostInput {
   price: number;
 }
 
-@Resolver()
+@Resolver(Service)
 export class ServiceResolver {
+  @FieldResolver(() => User)
+  creator(@Root() service: Service, @Ctx() { userLoader }: MyContext) {
+    return userLoader.load(service.creatorId);
+  }
+
   @Query(() => [Service])
   services(): Promise<Service[]> {
     return Service.find();
