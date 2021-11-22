@@ -1,5 +1,5 @@
-# lireddit.api
-Backend for a Reddit clone using GraphQL, Express, Postgresql and other technologies 
+# monme.api
+Backend for a user-contractor connection APP using GraphQL, Express, Postgresql and other technologies 
 
 # How To run
 Install all the dependencies with:
