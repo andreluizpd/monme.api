@@ -25,7 +25,7 @@ class PostInput {
 }
 
 @Resolver()
-export class PostResolver {
+export class ServiceResolver {
   @Query(() => [Service])
   services(): Promise<Service[]> {
     return Service.find();

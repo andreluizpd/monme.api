@@ -7,7 +7,7 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { HelloResolver } from './resolvers/hello';
-import { PostResolver } from './resolvers/service';
+import { ServiceResolver } from './resolvers/service';
 import Redis from 'ioredis';
 import session from 'express-session';
 import connectRedis from 'connect-redis';
@@ -17,7 +17,7 @@ import { createConnection } from 'typeorm';
 const main = async () => {
   createConnection({
     type: 'postgres',
-    database: 'lireddit',
+    database: 'monme',
     username: 'postgres',
     password: 'postgres',
     logging: true,
@@ -58,7 +58,7 @@ const main = async () => {
 
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver, PostResolver, UserResolver],
+      resolvers: [HelloResolver, ServiceResolver, UserResolver],
       validate: false,
     }),
     context: ({ req, res }) => ({ req, res, redis }),

@@ -152,6 +152,7 @@ export class UserResolver {
           username: options.username,
           password: hashedPassword,
           email: options.email,
+          isServiceProvider: options.isServiceProvider,
         })
         .returning('*')
         .execute();
@@ -178,22 +179,18 @@ export class UserResolver {
 
   @Mutation(() => UserResponse)
   async login(
-    @Arg('usernameOrEmail') usernameOrEmail: string,
+    @Arg('email') email: string,
     @Arg('password') password: string,
     @Ctx() { req }: MyContext
   ): Promise<UserResponse> {
-    const user = await User.findOne(
-      usernameOrEmail.includes('@')
-        ? { where: { email: usernameOrEmail } }
-        : { where: { username: usernameOrEmail } }
-    );
+    const user = await User.findOne({ where: { email: email } });
 
     if (!user) {
       return {
         errors: [
           {
-            field: 'usernameOrEmail',
-            message: "Username doesn't exist",
+            field: 'email',
+            message: "User doesn't exist",
           },
         ],
       };

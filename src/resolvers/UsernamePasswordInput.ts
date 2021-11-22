@@ -10,4 +10,7 @@ export class UsernamePasswordInput {
 
   @Field()
   password: string;
+
+  @Field()
+  isServiceProvider: boolean;
 }
